@@ -1,4 +1,4 @@
-package com.controleestoque.api_estoque;
+package com.controleestoque.api_estoque.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
