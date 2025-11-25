@@ -1,6 +1,7 @@
 package com.controleestoque.api_estoque.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -14,7 +15,6 @@ public class Produto {
     private Long id; // Chave primária.
 
     private String nome;
-
     private BigDecimal preco;
 
     // Relacionamento 1:1 (One-to-One)
@@ -42,14 +42,19 @@ public class Produto {
     )
     private Set<Fornecedor> fornecedores;
 
+    // --- Relacionamento 1:N (One-to-Many) ---
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<ItensVenda> itensVendas;
+
     // Construtores, Getters e Setters...
     public Produto(String nome, BigDecimal preco, Estoque estoque, Categoria categoria,
-                   Set<Fornecedor> fornecedores) {
+                   Set<Fornecedor> fornecedores, List<ItensVenda> itensVendas) {
         this.nome = nome;
         this.preco = preco;
         this.estoque = estoque;
         this.categoria = categoria;
         this.fornecedores = fornecedores;
+        this.itensVendas = itensVendas;
     }
 
     public Long getId() {
@@ -98,5 +103,13 @@ public class Produto {
 
     public void setFornecedores(Set<Fornecedor> fornecedores) {
         this.fornecedores = fornecedores;
+    }
+
+    public List<ItensVenda> getItensVendas() {
+        return itensVendas;
+    }
+
+    public void setItensVendas(List<ItensVenda> itensVendas) {
+        this.itensVendas = itensVendas;
     }
 }

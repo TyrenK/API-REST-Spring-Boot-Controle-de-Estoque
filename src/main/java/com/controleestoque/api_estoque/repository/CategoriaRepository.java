@@ -6,5 +6,5 @@ import com.controleestoque.api_estoque.model.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
-    // Métodos personalizados podem ser adicionados aqui (ex: findByNome)
+    
 }

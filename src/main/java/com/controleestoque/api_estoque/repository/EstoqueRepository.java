@@ -6,5 +6,5 @@ import com.controleestoque.api_estoque.model.Estoque;
 
 @Repository
 public interface EstoqueRepository extends JpaRepository<Estoque, Long>{
-    // Métodos personalizados podem ser adicionados aqui (ex: findByNome)
+    
 }

@@ -6,5 +6,5 @@ import com.controleestoque.api_estoque.model.Fornecedor;
 
 @Repository
 public interface FornecedorRepository extends JpaRepository<Fornecedor, Long>{
-    // Métodos personalizados podem ser adicionados aqui (ex: findByNome)
+ 
 }
