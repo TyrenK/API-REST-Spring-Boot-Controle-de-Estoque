@@ -1,6 +1,7 @@
 package com.controleestoque.api_estoque.model;
 
 import java.util.List;
+import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,7 +17,7 @@ public class Cliente {
 
     // --- Relacionamento 1:N (One-to-Many) ---
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Venda> vendas;
+    private List<Venda> vendas = new ArrayList<>();
 
     // Construtores, Getters e Setters...
     public Cliente() {}

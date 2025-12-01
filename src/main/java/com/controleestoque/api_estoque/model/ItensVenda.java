@@ -1,5 +1,6 @@
 package com.controleestoque.api_estoque.model;
 
+
 import java.math.BigDecimal;
 import jakarta.persistence.*;
 
@@ -11,47 +12,47 @@ public class ItensVenda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private BigDecimal quantidadeV;
+    private Integer quantidade;
     private BigDecimal precoUni;
+    private BigDecimal valorTotal;
 
-    // Relacionamento 1:1 (One-to-One)
-    // Mapeamento: Um item vendido têm UMA venda.
-    // LAZY = Carregamento lento. Só carrega a chave estrangeira (FK).
-    @OneToOne(fetch = FetchType.LAZY) // LAZY: Carrega a venda apenas quando for solicitada.
-    @JoinColumn(name = "venda_id", nullable = false) // Define a FK na tabela itensvenda.
+
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn(name = "venda_id", nullable = false) 
     private Venda venda;
 
 
-    // Relacionamento N:1 (Many-to-One)
-    // Mapeamento: Um item vendido têm UM produto.
-    // LAZY = Carregamento lento. Só carrega a chave estrangeira (FK).
-    @OneToOne(fetch = FetchType.LAZY) // LAZY: Carrega o produto apenas quando for solicitada.
-    @JoinColumn(name = "produto_id", nullable = false) // Define a FK na tabela itensvenda.
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn(name = "produto_id", nullable = false) 
     private Produto produto;
 
     // Construtores, Getters e Setters...
     public ItensVenda() {}
 
-    public ItensVenda(BigDecimal quantidadeV, BigDecimal precoUni, Venda venda, Produto produto) {
-        this.quantidadeV = quantidadeV;
+    public ItensVenda(Integer quantidade, BigDecimal precoUni, Venda venda, Produto produto, BigDecimal valorTotal) {
+        this.quantidade = quantidade;
         this.precoUni = precoUni;
         this.venda = venda;
         this.produto = produto;
+        this.valorTotal = valorTotal;
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public BigDecimal getQuantidadeV() { return quantidadeV; }
-    public void setQuantidadeV(BigDecimal quantidadeV) { this.quantidadeV = quantidadeV; }
+    public Integer getQuantidade() { return quantidade; }
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
 
-    public BigDecimal getPrecoUni() { return precoUni; }
-    public void setPrecoUni(BigDecimal precoUni) { this.precoUni = precoUni; }
+    public BigDecimal getPrecoUnitario() { return precoUni; }
+    public void setPrecoUnitario(BigDecimal precoUni) { this.precoUni = precoUni; }
+
+    public BigDecimal getValorTotal() { return valorTotal; }
+    public void setValorTotal(BigDecimal precoTotal) { this.valorTotal = precoTotal; }
 
     public Venda venda() { return venda; }
     public void setVenda(Venda venda) { this.venda = venda; }
 
-    public Produto produto() { return produto; }
+    public Produto getProduto() { return produto; }
     public void setProduto(Produto produto) { this.produto = produto; }
 
 }

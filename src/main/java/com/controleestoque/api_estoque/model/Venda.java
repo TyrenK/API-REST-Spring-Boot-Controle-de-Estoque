@@ -2,6 +2,8 @@ package com.controleestoque.api_estoque.model;
 
 import java.util.List;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +14,8 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private BigDecimal precoTotal;
+    private BigDecimal valorTotal;
+    private LocalDateTime dataVenda;
     
     // Relacionamento N:1 (Many-to-One)
     // Mapeamento: Muitas vendas têm UM cliente.
@@ -27,21 +30,25 @@ public class Venda {
 
     public Venda() {}
 
-    public Venda(Cliente cliente, List<ItensVenda> itensVendas, BigDecimal precoTotal) {
+    public Venda(Cliente cliente, List<ItensVenda> itensVendas, BigDecimal valorTotal, LocalDateTime dataVenda) {
         this.cliente = cliente;
         this.itensVendas = itensVendas;
-        this.precoTotal = precoTotal;
+        this.valorTotal = valorTotal;
+        this.dataVenda = dataVenda;
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public BigDecimal getPrecoTotal() { return precoTotal; }
-    public void setPrecoTotal(BigDecimal precoTotal) { this.precoTotal = precoTotal; }
+    public BigDecimal getValorTotal() { return valorTotal; }
+    public void setValorTotal(BigDecimal precoTotal) { this.valorTotal = precoTotal; }
+
+    public LocalDateTime getDataVenda() { return dataVenda; }
+    public void setDataVenda(LocalDateTime dataVenda) { this.dataVenda = dataVenda; }
 
     public Cliente getCliente() { return cliente; }
-    public void setNome(Cliente cliente) { this.cliente = cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
 
-    public List<ItensVenda> getProdutos() { return itensVendas; }
-    public void setProdutos(List<ItensVenda> itensVendas) { this.itensVendas = itensVendas; }
+    public List<ItensVenda> getItensVendas() { return itensVendas; }
+    public void setItensVendas(List<ItensVenda> itensVendas) { this.itensVendas = itensVendas; }
 }

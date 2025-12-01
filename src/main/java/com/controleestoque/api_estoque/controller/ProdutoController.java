@@ -15,7 +15,7 @@ import com.controleestoque.api_estoque.repository.FornecedorRepository;
 
 
 @RestController
-@RequestMapping("/apí/produtos")
+@RequestMapping("/api/produtos")
 @RequiredArgsConstructor
 public class ProdutoController {
 
@@ -45,9 +45,6 @@ public class ProdutoController {
         categoriaRepository.findById(produto.getCategoria().getId())
                  .ifPresent(produto::setCategoria);
 
-        if (produto.getFornecedores() != null  && !produto.getFornecedores().isEmpty()) {
-            produto.getFornecedores().clear();
-        }
 
         produto.getFornecedores().forEach(fornecedor -> {
             fornecedorRepository.findById(fornecedor.getId())
