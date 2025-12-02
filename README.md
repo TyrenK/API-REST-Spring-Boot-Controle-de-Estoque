@@ -254,5 +254,8 @@ Mesmo se alguns itens tenham estoque suficiente:
 - Spring Web  
 - PostgreSQL / MySQL / H2  
 - Maven  
+
+
+## Link do video: https://drive.google.com/file/d/1Lvi1XJCN3Wm7Cx9J8A-TPspjADgdu46B/view?usp=sharing
 - Java 17+
 
