@@ -35,8 +35,8 @@ Antes de iniciar, certifique-se de ter instalado:
 ### 1️⃣ Clonar o Repositório
 
 ```bash
-git clone [SEU_LINK_DO_REPOSITORIO]
-cd nome-do-seu-projeto
+git clone https://github.com/TyrenK/API-REST-Spring-Boot-Controle-de-Estoque.git
+cd API-REST-Spring-Boot-Controle-de-Estoque
 ```
 
 ---
@@ -105,7 +105,6 @@ Todos seguem o padrão:
 {
   "nome": "Maria Silva",
   "email": "maria.silva@exemplo.com",
-  "telefone": "11987654321"
 }
 ```
 
@@ -119,21 +118,21 @@ Todos seguem o padrão:
 |--------|---------------|-------------------------------------------|
 | POST   | /api/vendas   | Registra venda + baixa automática do estoque |
 
-### 📥 Exemplo de Payload
+### 📥 Exemplo de Payload (Lembre-se que para testar, você deve já ter um produto e este produto deve ter um fornecedor e uma categoria antes de ser postado).
 
 ```json
 {
-  "clienteId": 10,
-  "itensVenda": [
+  "clienteId": 1,
+  "itens": [
     {
       "produtoId": 1,
-      "quantidadeVendida": 2,
-      "precoUnitario": 50.00  
+      "quantidade": 2,
+      "precoUnitario": 129.99
     },
     {
-      "produtoId": 2,
-      "quantidadeVendida": 5,
-      "precoUnitario": 12.50
+      "produtoId": 3,
+      "quantidade": 1,
+      "precoUnitario": 2499.99
     }
   ]
 }
