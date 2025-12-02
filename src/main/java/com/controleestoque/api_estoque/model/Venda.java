@@ -1,6 +1,7 @@
 package com.controleestoque.api_estoque.model;
 
 import java.util.List;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

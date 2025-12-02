@@ -1,6 +1,9 @@
 package com.controleestoque.api_estoque.model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import jakarta.persistence.*;
 
@@ -16,6 +19,7 @@ public class Cliente {
     private String email;
 
     // --- Relacionamento 1:N (One-to-Many) ---
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Venda> vendas = new ArrayList<>();
 

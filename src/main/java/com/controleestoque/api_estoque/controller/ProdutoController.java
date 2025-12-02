@@ -1,10 +1,12 @@
 package com.controleestoque.api_estoque.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.controleestoque.api_estoque.dto.ProdutoResponseDTO;
 import com.controleestoque.api_estoque.model.Produto;
 import com.controleestoque.api_estoque.repository.ProdutoRepository;
 
@@ -24,37 +26,46 @@ public class ProdutoController {
     private final FornecedorRepository fornecedorRepository;
 
     @GetMapping
-    public List<Produto> getAllProdutos() {
-        return produtoRepository.findAll();
+    public List<ProdutoResponseDTO> getAllProdutos() {
+        return produtoRepository.findAll()
+                .stream()
+                .map(ProdutoResponseDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> getCategoriaById(@PathVariable Long id) {
+    public ResponseEntity<ProdutoResponseDTO> getCategoriaById(@PathVariable Long id) {
         return produtoRepository.findById(id)
-                .map(ResponseEntity::ok)
+                .map(produto -> ResponseEntity.ok(ProdutoResponseDTO.fromEntity(produto)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Produto> createProduto(@RequestBody Produto produto) {
-        if(produto.getCategoria() == null || produto.getCategoria().getId() == null) {
-            return ResponseEntity.badRequest().build();
+        if (produto.getCategoria() == null || produto.getCategoria().getId() == null) {
+            return ResponseEntity.badRequest().body(null);
         }
         categoriaRepository.findById(produto.getCategoria().getId())
-                 .ifPresent(produto::setCategoria);
+                .ifPresentOrElse(produto::setCategoria, () -> {
+                    throw new IllegalArgumentException("Categoria não encontrada");
+                });
 
+        if (produto.getFornecedores() != null && !produto.getFornecedores().isEmpty()) {
+            produto.setFornecedores(produto.getFornecedores().stream()
+                    .map(fornecedor -> fornecedorRepository.findById(fornecedor.getId())
+                            .orElseThrow(() -> new IllegalArgumentException("Fornecedor não encontrado")))
+                    .collect(Collectors.toSet()));
+        }
 
-        produto.getFornecedores().forEach(fornecedor -> {
-            fornecedorRepository.findById(fornecedor.getId())
-                .ifPresent(produto.getFornecedores()::add);     
-        });  
-        
+        if (produto.getEstoque() != null) {
+            produto.getEstoque().setProduto(produto);
+        }
+
         Produto savedProduto = produtoRepository.save(produto);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduto);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Produto> updateProduto(@PathVariable Long id, @RequestBody Produto produtoDetails) {
@@ -70,6 +81,8 @@ public class ProdutoController {
 
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    
 
 
     @DeleteMapping("/{id}")

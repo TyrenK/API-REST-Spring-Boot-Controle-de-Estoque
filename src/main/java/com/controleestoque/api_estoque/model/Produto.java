@@ -46,6 +46,8 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<ItensVenda> itensVendas;
 
+    public Produto() {}
+
     // Construtores, Getters e Setters...
     public Produto(String nome, BigDecimal preco, Estoque estoque, Categoria categoria,
                    Set<Fornecedor> fornecedores, List<ItensVenda> itensVendas) {

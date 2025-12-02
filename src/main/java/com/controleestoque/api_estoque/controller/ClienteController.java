@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.controleestoque.api_estoque.dto.ClienteDTO;
 import com.controleestoque.api_estoque.model.Cliente;
 import com.controleestoque.api_estoque.repository.ClienteRepository;
 
@@ -18,18 +19,35 @@ public class ClienteController {
     private final ClienteRepository clienteRepository;
 
     @GetMapping
-    public List<Cliente> getAllClientes() {
-        return clienteRepository.findAll();
-    }
+        public List<ClienteDTO> getAllClientes() {
+            return clienteRepository.findAll()
+                .stream()
+                .map(cliente -> {
+                    ClienteDTO dto = new ClienteDTO();
+                    dto.setId(cliente.getId());
+                    dto.setNome(cliente.getNome());
+                    dto.setEmail(cliente.getEmail());
+                    return dto;
+                })
+                .toList();
+        }
+
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
-        return clienteRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+        public ResponseEntity<ClienteDTO> getClienteById(@PathVariable Long id) {
+            return clienteRepository.findById(id)
+                    .map(cliente -> {
+                        ClienteDTO dto = new ClienteDTO();
+                        dto.setId(cliente.getId());
+                        dto.setNome(cliente.getNome());
+                        dto.setEmail(cliente.getEmail());
+                        return ResponseEntity.ok(dto);
+                    })
+                    .orElse(ResponseEntity.notFound().build());
+        }
 
-    @PostMapping
+
+    @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente createCliente(@RequestBody Cliente cliente) {
         return clienteRepository.save(cliente);

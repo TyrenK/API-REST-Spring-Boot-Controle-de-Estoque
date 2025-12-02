@@ -9,7 +9,7 @@ import lombok.Data;
 public class VendaResponseDTO {
 
     private Long id;
-    private Long clienteId;
+    private ClienteDTO cliente; // incluir apenas dados do cliente, sem vendas
     private LocalDateTime dataVenda; 
     private BigDecimal valorTotal;
     private List<ItemVendaResponseDTO> itens;

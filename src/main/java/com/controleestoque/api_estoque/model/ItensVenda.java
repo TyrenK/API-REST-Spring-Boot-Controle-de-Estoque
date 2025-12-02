@@ -13,7 +13,7 @@ public class ItensVenda {
     private Long id;
     
     private Integer quantidade;
-    private BigDecimal precoUni;
+    private BigDecimal precoUnitario;
     private BigDecimal valorTotal;
 
 
@@ -29,9 +29,9 @@ public class ItensVenda {
     // Construtores, Getters e Setters...
     public ItensVenda() {}
 
-    public ItensVenda(Integer quantidade, BigDecimal precoUni, Venda venda, Produto produto, BigDecimal valorTotal) {
+    public ItensVenda(Integer quantidade, BigDecimal precoUnitario, Venda venda, Produto produto, BigDecimal valorTotal) {
         this.quantidade = quantidade;
-        this.precoUni = precoUni;
+        this.precoUnitario = precoUnitario;
         this.venda = venda;
         this.produto = produto;
         this.valorTotal = valorTotal;
@@ -43,13 +43,13 @@ public class ItensVenda {
     public Integer getQuantidade() { return quantidade; }
     public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
 
-    public BigDecimal getPrecoUnitario() { return precoUni; }
-    public void setPrecoUnitario(BigDecimal precoUni) { this.precoUni = precoUni; }
+    public BigDecimal getPrecoUnitario() { return precoUnitario; }
+    public void setPrecoUnitario(BigDecimal precoUnitario) { this.precoUnitario = precoUnitario; }
 
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal precoTotal) { this.valorTotal = precoTotal; }
 
-    public Venda venda() { return venda; }
+    public Venda getVenda() { return venda; }
     public void setVenda(Venda venda) { this.venda = venda; }
 
     public Produto getProduto() { return produto; }
