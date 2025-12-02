@@ -137,7 +137,64 @@ Todos seguem o padrão:
   ]
 }
 ```
+## 🔹 3. Produtos
 
+### Endpoint principal:
+
+| Método | Endpoint     | Descrição           |
+|--------|-----------------|------------------|
+| POST   | /api/produtos   | Registra produto |
+
+
+### 📥 Exemplo de Produto
+
+```json
+{
+  "nome": "Mouse Gamer RGB",
+  "preco": 159.90,
+  "categoria": {
+    "id": 2
+  },
+  "fornecedores": [
+    {
+      "id": 1
+    }
+  ],
+  "estoque": {
+    "quantidade": 25
+  }
+}
+```
+---
+
+## 🔹 4. Categorias e Fornecedores
+
+### Endpoints principais:
+
+| Método | Endpoint               | Descrição          |
+|--------|------------------------|--------------------|
+| POST   | /api/categorias        | Registra categoria |
+| GET    | /api/categorias        | Lista as categorias |
+| GET    | /api/categorias/{id}   | Lista a categoria por id |
+| PUT    | /api/categorias/{id}   | Edita a categoria por id|
+| DELETE | /api/categorias/{id}   | Deleta a categoria por id |
+| POST   | /api/fornecedores      | Registra o fornecedor   |
+| GET    | /api/fornecedores      | Lista os fornecedores   |
+| GET    | /api/fornecedores/{id} | Lista o fornecedor por id |
+| PUT    | /api/fornecedores/{id} | Edita o fornecedor por id   |
+| DELETE | /api/fornecedores/{id} | Deleta o fornecedor por id   |
+
+
+### 📥 Exemplo de Fornecedor/Categoria
+
+```json
+{
+  "nome": "Categoria x",
+}
+{
+  "nome": "Fornecedor X",
+}
+```
 ---
 
 ## 🔥 Lógica de Estoque (Transacional)
